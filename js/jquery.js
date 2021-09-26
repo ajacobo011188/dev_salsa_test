@@ -89,7 +89,7 @@ function changePass() {
         cache: false,
         success: function (response) {
             if (response == "success") {
-                $('#success_message').html('<div class="alert alert-success"><strong>Éxito!</strong> Su contraseña se modifico con éxito <a class="nav-link" style="color: red" href="../DevSalsa/login/logout.php">Cerrar Sesión</a></div>');
+                $('#success_message').html('<div class="alert alert-success"><strong>Éxito!</strong> Su contraseña se modificó con éxito <a class="nav-link" style="color: red" href="../test_dev_salsa/login/logout.php">Cerrar Sesión</a></div>');
             } else {
                 $("#error_message").html('<div class="alert alert-danger"><strong>Error!</strong> ' + response + ' </div>');
             }

@@ -28,26 +28,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
-                $userRolAdmin = "SELECT * FROM user WHERE rolId = '" . RolAdmin . "'";
-                $resultSql = $conn->query($userRolAdmin);
+                $statusSql = "SELECT * FROM status";
+                $resultStatuSql = $conn->query($statusSql);
 
-                $constRol = $resultSql->num_rows > 0 ? RolUser : RolAdmin;
+                $rolSql = "SELECT * FROM rol";
+                $resultRolSql = $conn->query($rolSql);
 
-                $selectSql = "SELECT * FROM user WHERE email = '$email'";
-                $result = $conn->query($selectSql);
+                if ($resultStatuSql->num_rows > 0 && $resultRolSql->num_rows > 0) {
 
-                if ($result->num_rows < 1) {
+                    $userRolAdmin = "SELECT * FROM user WHERE rolId = '" . RolAdmin . "'";
+                    $resultSql = $conn->query($userRolAdmin);
 
-                    $insert = "INSERT INTO user (name, lastname, email, password, rolId, statusId) VALUES ('$name', '$lastName', '$email', '$pass', '$constRol', '$constActive')";
+                    $constRol = $resultSql->num_rows > 0 ? RolUser : RolAdmin;
 
-                    if ($conn->query($insert) === true) {
-                        $conn->close();
-                        echo json_encode("success");
+                    $selectSql = "SELECT * FROM user WHERE email = '$email'";
+                    $result = $conn->query($selectSql);
+
+                    if ($result->num_rows < 1) {
+
+                        $insert = "INSERT INTO user (name, lastname, email, password, rolId, statusId) VALUES ('$name', '$lastName', '$email', '$pass', '$constRol', '$constActive')";
+
+                        if ($conn->query($insert) === true) {
+                            $conn->close();
+                            echo json_encode("success");
+                        } else {
+                            echo json_encode("Error: " . $sql . "<br>" . $conn->error);
+                        }
                     } else {
-                        echo json_encode("Error: " . $sql . "<br>" . $conn->error);
+                        echo json_encode("El correo ya existe, por favor ingrese uno distinto");
                     }
                 } else {
-                    echo json_encode("El correo ya existe, por favor ingrese uno distinto");
+                    echo json_encode("Verifiqué que las tablas Rol y Status contenga sus registros correspondientes para poder proceder a el registro de usuario");
                 }
             } else {
                 echo json_encode("El correo electrónico no es valido");
