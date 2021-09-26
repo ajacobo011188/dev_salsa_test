@@ -29,7 +29,7 @@ include 'user/userList.php';
                     Iniciar sesión
                 </button>
                 <button class="btn btn-info col-lg-2" type="button" data-toggle="collapse" data-target="#collapsListUser" aria-expanded="false" aria-controls="collapsListUser">
-                    listado de usuarios
+                    Listado de usuarios
                 </button>
             </p>
             <div class="collapse col-lg-5" id="collapseLogin">
