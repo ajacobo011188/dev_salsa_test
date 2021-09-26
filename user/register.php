@@ -28,7 +28,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
-                $userRolAdmin = "SELECT * FROM user WHERE rolId = '1'";
+                $userRolAdmin = "SELECT * FROM user WHERE rolId = '" . RolAdmin . "'";
                 $resultSql = $conn->query($userRolAdmin);
 
                 $constRol = $resultSql->num_rows > 0 ? RolUser : RolAdmin;
