@@ -21,6 +21,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $email = $_POST['email'];
         $pass = md5($_POST['password']);
 
+        $constActive = ACTIVE;
+        
+
         if (!empty($name) && !empty($lastName) && !empty($email) && !empty($pass)) {
 
             if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
@@ -35,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 if ($result->num_rows < 1) {
 
-                    $insert = "INSERT INTO user (name, lastname, email, password, rolId, statusId) VALUES ('$name', '$lastName', '$email', '$pass', '$constRol', '" . ACTIVE . ")";
+                    $insert = "INSERT INTO user (name, lastname, email, password, rolId, statusId) VALUES ('$name', '$lastName', '$email', '$pass', '$constRol', '$constActive')";
 
                     if ($conn->query($insert) === true) {
                         $conn->close();
